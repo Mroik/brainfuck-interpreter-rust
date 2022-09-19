@@ -79,9 +79,11 @@ impl Interpreter {
         print!("{}", char::from(self.memory[self.data_pointer]));
     }
 
+    // Only works with ascii
     fn scan_data(&mut self) {
         let mut buf: [u8; 1] = [0];
         io::stdin().read_exact(&mut buf).expect("Couldn't read");
+        self.memory[self.data_pointer] = buf[0];
     }
 
     fn left_conditional(&mut self) {
