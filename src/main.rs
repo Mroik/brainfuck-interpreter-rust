@@ -32,6 +32,7 @@ impl Interpreter {
     }
 
     fn load_program(&mut self, program: String) {
+        self.program = Vec::new();
         for ins in program.chars().collect::<Vec<char>>() {
             match ins {
                 '>' => self.program.push(Instruction::Right),
