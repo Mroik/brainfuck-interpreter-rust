@@ -110,16 +110,25 @@ impl Interpreter {
             return;
         }
 
+        let mut counter = 0;
+        self.program_pointer -= 1;
+
         loop {
             match self.program[self.program_pointer] {
-                Instruction::Open => break,
+                Instruction::Open => {
+                    if counter == 0 {
+                        break;
+                    }
+                    counter -= 1;
+                },
+                Instruction::Close => counter += 1,
                 _ => {
                     if self.program_pointer == 0 {
                         panic!("The program is not well formed");
                     }
-                    self.program_pointer -= 1;
                 }
             }
+            self.program_pointer -= 1;
         }
     }
 
